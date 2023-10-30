@@ -1,8 +1,14 @@
 const router = require('express').Router();
 const { PrismaClient } = require('@prisma/client');
 
+ /* -------------------------------------------------------------------------- */
+ /*                                PRISMA CLIENT                               */
+ /* -------------------------------------------------------------------------- */
 const prisma = new PrismaClient();
 
+/* -------------------------------------------------------------------------- */
+/*                        ROUTES CRUD AND LOGIN EXAMPLE                       */
+/* -------------------------------------------------------------------------- */
 router.post('/login', async (req, res) => {
     
     const { email, password } = req.body;
@@ -35,7 +41,9 @@ router.post('/login', async (req, res) => {
     }
 });
 
-//criar
+/* -------------------------------------------------------------------------- */
+/*                               CREATE PRODUCTS                              */
+/* -------------------------------------------------------------------------- */
 router.post('/produtos', async (req, res)=>{
     const {name, price} = req.body
 
@@ -47,7 +55,6 @@ router.post('/produtos', async (req, res)=>{
     })
 
     if(produto){
-        //criado
         return res.status(201).json({
             message: 'produto cadastrado com sucesso!',
             data: produto
@@ -60,14 +67,18 @@ router.post('/produtos', async (req, res)=>{
     
 })
 
-//listar todos
+/* -------------------------------------------------------------------------- */
+/*                              LIST ALL PRODUCTS                             */
+/* -------------------------------------------------------------------------- */
 router.get('/produtos',async (req, res)=>{
         const produto = await prisma.produtos.findMany()
 
         return res.json(produto)
 })
 
-//listar por id
+/* -------------------------------------------------------------------------- */
+/*                             LIST PRODUCT BY ID                             */
+/* -------------------------------------------------------------------------- */
 router.get('/produtos/:id',async (req,res)=>{
 
     const id = parseInt(req.params.id, 10); 
@@ -87,6 +98,9 @@ router.get('/produtos/:id',async (req,res)=>{
     return res.json(produto)
 })
 
+/* -------------------------------------------------------------------------- */
+/*                            UPDATE PRODUCT BY ID                            */
+/* -------------------------------------------------------------------------- */
 router.put('/produtos/:id', async(req, res)=>{
     const id = parseInt(req.params.id, 10); 
 
@@ -116,6 +130,9 @@ router.put('/produtos/:id', async(req, res)=>{
 
 })
 
+/* -------------------------------------------------------------------------- */
+/*                               DELETE PRODUCT                               */
+/* -------------------------------------------------------------------------- */
 router.delete('/produtos/:id',async(req, res)=>{
     const id = parseInt(req.params.id, 10); 
 
