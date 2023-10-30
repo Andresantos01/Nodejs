@@ -3,6 +3,10 @@ const router = require('./routes/router');
 require('dotenv/config')
 const app = express();
 
+/* -------------------------------------------------------------------------- */
+/*                           CREATE SETUP SERVER JS                           */
+/* -------------------------------------------------------------------------- */
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
